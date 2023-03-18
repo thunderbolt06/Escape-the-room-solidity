@@ -148,9 +148,17 @@ function setCurrentRoomDataToDOM(currentRoom) {
             if(currentRoom[i][j] == 1){
                 gridItems[i*3+j].innerText = "***\n* *\n***";
             }
+            else{
+                
+                gridItems[i*3+j].innerText = "";
+            
+            }
             
         }
     }
+    gridItems[0].innerText = "Start";
+    gridItems[8].innerText = "Escape";
+
 
 }
 
@@ -179,7 +187,7 @@ async function generateNewBoard(){
         console.log("generated new board");
 		return success.wait().then(done => getGrid());
 	});
-    await getGrid();
+    // await getGrid();
 }
 
 async function computePaths(){

@@ -66,6 +66,9 @@ contract EscapeTheRoom{
                     else if(i == 1 && j == 1){
                         numPaths = 2;
                     }
+                    else if(i == 2 && j == 0){
+                        numPaths = 5;
+                    }
                     else {
                         numPaths = 3;
                     }
@@ -76,4 +79,5 @@ contract EscapeTheRoom{
         }
         escapeRoomData[msg.sender].currentPaths = numPaths;
     }
+    
 }
