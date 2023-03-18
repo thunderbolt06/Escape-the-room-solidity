@@ -8,7 +8,6 @@ contract EscapeTheRoom{
         uint[3][3] currentRoomCoordinates;
         uint currentPaths;
     }
-    uint[4][4] dp;
 
     mapping(address => userEscapeRoomData) escapeRoomData;
 
@@ -57,7 +56,7 @@ contract EscapeTheRoom{
         uint j = 1;
         uint[3][3] currentRoom = escapeRoomData[msg.sender].currentRoomCoordinates;
         
-
+        uint[4][4] dp;
         for(int i=0 ; i<3 ; i++){
             if(currentRoom[i][0]==1){
                 break;
