@@ -8,6 +8,7 @@ contract EscapeTheRoom{
         uint[3][3] currentRoomCoordinates;
         uint currentPaths;
     }
+    uint[4][4] dp;
 
     mapping(address => userEscapeRoomData) escapeRoomData;
 
@@ -54,30 +55,31 @@ contract EscapeTheRoom{
     function computePathsCurrentBoard() external {
         uint i = 0;
         uint j = 1;
-        uint numPaths = 0;
+        uint[3][3] currentRoom = escapeRoomData[msg.sender].currentRoomCoordinates;
+        
 
-        while(i < 3){
-            j=0;
-            while(j < 3){
-                if(escapeRoomData[msg.sender].currentRoomCoordinates[i][j] == 1){
-                    if(i == 0 && j == 2){
-                        numPaths = 5;
-                    }
-                    else if(i == 1 && j == 1){
-                        numPaths = 2;
-                    }
-                    else if(i == 2 && j == 0){
-                        numPaths = 5;
-                    }
-                    else {
-                        numPaths = 3;
-                    }
-                }
-                j+=1;
+        for(int i=0 ; i<3 ; i++){
+            if(currentRoom[i][0]==1){
+                break;
             }
-            i+=1;
+            dp[i][0] = 1;
         }
-        escapeRoomData[msg.sender].currentPaths = numPaths;
+        for(int j=0 ; j<3 ; j++){
+            if(currentRoom[0][j]==1){
+                break;
+            }
+            dp[0][j] = 1;
+        }
+
+        for(uint i=1;i<3;i++){
+            for(uint j=1;j<3;j++){
+
+                if(currentRoom[i][j]!=1){
+                    dp[i][j] = (dp[i-1][j] + dp[i][j-1]);
+                }
+            }
+        }
+        escapeRoomData[msg.sender].currentPaths = dp[2][2];
     }
     
 }
