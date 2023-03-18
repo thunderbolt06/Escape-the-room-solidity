@@ -134,7 +134,7 @@ function updateDOM(){
 
 function contractInit(){
     contract = new ethers.Contract(contractAddress, ABI, provider.getSigner());	
-    getGrid();
+    // getGrid();
 }
 
 function setCurrentRoomDataToDOM(currentRoom) {
@@ -159,18 +159,13 @@ function setStatsToBoard(curVolume,  blockTime){
     if (curVolume == '0') {
         curVolume = '-';
     }
-    document.querySelector('.stats .current-volume .current-volume-value').innerText = curVolume;
+    // document.querySelector('.stats .current-volume .current-volume-value').innerText = curVolume;
 
     document.querySelector('.stats .block-time .block-time-value').innerText = blockTime;
 
 }
 
 
-// function clearCanvas(){
-//     let canvas = document.getElementById('tank-data');
-//     let ctx = canvas.getContext("2d");
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-// }
 async function getGrid(){
     const currentRoom = await contract.getCurrentRoom();
     console.log("refreshed grid");
@@ -190,5 +185,10 @@ async function generateNewBoard(){
 async function computePaths(){
     console.log("compute paths");
     contract.computePathsCurrentBoard().then(success => success.wait().then(done => getGrid()));
+    
+    const currentRoom = await contract.getCurrentRoom();
+    
+    document.querySelector('.stats .current-volume .current-volume-value').innerText = currentRoom.currentPaths;
+
     await getGrid();
 }
