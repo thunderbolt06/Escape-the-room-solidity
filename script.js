@@ -106,7 +106,8 @@ const ABI = [
 	}
 ];
 // 0x826b3938f15545de434c70a9f8ae653c7e6c9467
-const contractAddress = "0x80fde479f46c3640c9738e2815016bdc62ca5631";
+// 0x3e4a3e6c3b446fD7a59c3dAdc2ba0db9a80Fec62
+const contractAddress = "0x15323527B4CaF99E4B19020DEC2492DB2ab1B415";
 async function viewAccounts(){
     let accounts = await provider.listAccounts();
     if(accounts.length){
@@ -189,14 +190,23 @@ async function generateNewBoard(){
 	});
     // await getGrid();
 }
+async function getPaths(){
+
+    const currentRoom = await contract.getCurrentRoom();
+        
+    document.querySelector('.stats .current-volume .current-volume-value').innerText = currentRoom.currentPaths;
+
+}
 
 async function computePaths(){
     console.log("compute paths");
-    contract.computePathsCurrentBoard().then(success => success.wait().then(done => getGrid()));
+    contract.computePathsCurrentBoard().then(success => success.wait().then(
+        done =>  {
+            
+        getGrid();
+        getPaths();
+        }
+        ));
     
-    const currentRoom = await contract.getCurrentRoom();
-    
-    document.querySelector('.stats .current-volume .current-volume-value').innerText = currentRoom.currentPaths;
-
-    await getGrid();
+    // await getGrid();
 }
