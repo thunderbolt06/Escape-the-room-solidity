@@ -7,7 +7,8 @@ Discord handle: Thunderbolt#1106
 # Website
 https://cold-cherry-5093.on.fleek.co/
 
-
+# Video
+https://youtu.be/OQGcY3cjV3c
 
 <img src="images/botPaths.png" alt="botPaths"/>
 
